@@ -12,6 +12,11 @@ in app/config/app.php
 );
 ```
 
+```
+$visa = App::make('credit_card_generator.visa');
+echo $visa;
+```
+
 creating object
 ```
 $cc = new \Gxela\CreditcardNumberGenerator\CreditCardGenerator();
