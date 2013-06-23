@@ -1,6 +1,9 @@
 {
     "name": "gxela/creditcard-number-generator",
-    "description": "",
+    "description": "Credit Card Number Generator",
+    "keywords": ["laravel", "creditcard", "generator"],
+    "homepage": "https://github.com/gxela/creditcard-number-generator",
+    "type": "library",
     "authors": [
         {
             "name": "Alex Goretoy",
