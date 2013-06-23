@@ -1,31 +1,28 @@
-Credit Card Number Generator Package for Laravel 4
-==================================================
+# Credit Card Number Generator
 
-###usage
+[![Build Status](https://secure.travis-ci.org/gxela/creditcard-number-generator.png?branch=master)](http://travis-ci.org/gxela/creditcard-number-generator)
 
-in app/config/app.php
-```
-'providers' => array(
-    ...
-    'Gxela\CreditcardNumberGenerator\CreditcardNumberGeneratorServiceProvider',
-    ...
-);
+## Install
+
+The recommended way to install gxela/creditcard-number-generator is [through composer](http://getcomposer.org).
+
+```JSON
+{
+    "require": {
+        "gxela/creditcard-number-generator": "0.1.*"
+    }
+}
 ```
 
-```
+## Example
+
+```php
+<?php
+
 $visa = App::make('credit_card_generator.visa');
 echo $visa;
 ```
 
-creating object
-```
-$cc = new \Gxela\CreditcardNumberGenerator\CreditCardGenerator();
-$number_of_cards = 2;
-echo $cc->get_visa16($number_of_cards); //returns array with 2 credit card numbers in it
-echo $cc->get_mastercard(); //return string credit card number
-```
+## License
 
-call static
-```
-echo \Gxela\CreditcardNumberGenerator\CreditCardGenerator::get_visa16();
-```
+MIT, see LICENSE.
