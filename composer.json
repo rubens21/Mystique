@@ -9,10 +9,13 @@
         {
             "name": "Alex Goretoy",
             "email": "alex@goretoy.com"
-        }
+        },{
+        "name": "Rubens Silva",
+        "email": "rubens21@gmail.com"
+      }
     ],
     "support": {
-        "email" : "alex@goretoy.com"
+        "email" : "rubens21@gmail.com"
     },
     "require": {
         "php": ">=5.3.0",
@@ -20,7 +23,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Gxela\\CreditcardNumberGenerator": "src/"
+            "Mystique\\CreditcardNumberGenerator": "src/"
         }
     },
     "minimum-stability": "dev"

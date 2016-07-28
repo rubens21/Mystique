@@ -1,9 +1,10 @@
 <?php
-namespace Gxela\CreditcardNumberGenerator;
+namespace Mystique\CreditcardNumberGenerator;
 /*
 PHP credit card number generator
 Copyright (C) 2006 Graham King graham@darkcoding.net
 Copyright (C) 2013 Alex Goretoy alex@goretoy.com
+Copyright (C) 2016 Rubens Silva rubens21@gmail.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
