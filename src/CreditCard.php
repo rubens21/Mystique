@@ -1,5 +1,5 @@
 <?php
-namespace Mystique\CreditcardNumberGenerator;
+namespace Mystique;
 
 /*
 PHP credit card number generator
@@ -22,8 +22,18 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class CreditCardGenerator
+class CreditCard
 {
+    private $flag;
+    private $number;
+    private $cvc;
+    private $validMonth;
+    private $validYear;
+
+    const FLAG_VISA = 'visa';
+    const FLAG_MASTER = 'master';
+    const FLAG_AMEX = 'amex';
+
     protected static $visaPrefixList = array("4539", "4556", "4916", "4532", "4929", "40240071", "4485", "4716", "4");
     protected static $mastercardPrefixList = array("51", "52", "53", "54", "55");
     protected static $amexPrefixList = array("34", "37");
@@ -33,13 +43,66 @@ class CreditCardGenerator
     protected static $jcbPrefixList = array("35");
     protected static $voyagerPrefixList = array("8699");
 
-    /*
-    'prefix' is the start of the CC number as a string, any number of digits.
-    'length' is the length of the CC number to generate. Typically 13 or 16
-    */
-    private static function completedNumber($prefix, $length)
+    public function __construct()
     {
-        $ccnumber = $prefix;
+        $this->flag = [self::FLAG_AMEX, self::FLAG_VISA, self::FLAG_MASTER][rand(0, 2)];
+        switch ($this->flag) {
+            case self::FLAG_MASTER:
+                $this->number = self::genMastercardNumber();
+                break;
+            case self::FLAG_VISA:
+                $this->number = rand(0,1)? self::genVisa16Number() : self::genVisa13Number();
+                break;
+            case self::FLAG_AMEX:
+                $this->number = self::genAmexNumber();
+                break;
+        }
+        $this->cvc = rand(100, 999);
+        $time = strtotime("+" . rand(2, 12 * 5) . ' MONTH');
+        $this->validMonth = date("m", $time);
+        $this->validYear = date("Y", $time);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCvc()
+    {
+        return $this->cvc;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getValidMonth()
+    {
+        return $this->validMonth;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getValidYear()
+    {
+        return $this->validYear;
+    }
+
+    /**
+     * @param array $prefixList List of initial numbers of the credit card number. It defines the brand
+     * @param int $length Length of the credit card number
+     * @return string A credit card number
+     */
+    private static function creditCardNumber($prefixList, $length)
+    {
+        $ccnumber = $prefixList[array_rand($prefixList)];
         # generate digits
         while (strlen($ccnumber) < ($length - 1)) {
             $ccnumber .= rand(0, 9);
@@ -65,28 +128,34 @@ class CreditCardGenerator
         return $ccnumber;
     }
 
-    public static function creditCardNumber($prefixList, $length)
-    {
-         $ccnumber = $prefixList[array_rand($prefixList)];
-         return self::completedNumber($ccnumber, $length);
-    }
-
-    public static function getMastercard()
+    /**
+     * @return string Generates a creditcard number of a brand
+     */
+    public static function genMastercardNumber()
     {
         return self::creditCardNumber(self::$mastercardPrefixList, 16);
     }
 
-    public static function getVisa16()
+    /**
+     * @return string Generates a creditcard number of a brand
+     */
+    public static function genVisa16Number()
     {
         return self::creditCardNumber(self::$visaPrefixList, 16);
     }
 
-    public static function getVisa13()
+    /**
+     * @return string Generates a creditcard number of a brand
+     */
+    public static function genVisa13Number()
     {
         return self::creditCardNumber(self::$visaPrefixList, 13);
     }
 
-    public static function getAmex()
+    /**
+     * @return string Generates a creditcard number of a brand
+     */
+    public static function genAmexNumber()
     {
         return self::creditCardNumber(self::$amexPrefixList, 15);
     }
