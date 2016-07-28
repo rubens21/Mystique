@@ -37,80 +37,57 @@ class CreditCardGenerator
     'prefix' is the start of the CC number as a string, any number of digits.
     'length' is the length of the CC number to generate. Typically 13 or 16
     */
-    private static function completed_number($prefix, $length)
+    private static function completedNumber($prefix, $length)
     {
-
         $ccnumber = $prefix;
-
         # generate digits
-
         while (strlen($ccnumber) < ($length - 1)) {
             $ccnumber .= rand(0, 9);
         }
-
         # Calculate sum
-
         $sum = 0;
         $pos = 0;
-
         $reversedCCnumber = strrev($ccnumber);
-
         while ($pos < $length - 1) {
-
             $odd = $reversedCCnumber[$pos] * 2;
             if ($odd > 9) {
                 $odd -= 9;
             }
-
             $sum += $odd;
-
             if ($pos != ($length - 2)) {
-
                 $sum += $reversedCCnumber[$pos + 1];
             }
             $pos += 2;
         }
-
         # Calculate check digit
-
         $checkdigit = ((floor($sum / 10) + 1) * 10 - $sum) % 10;
         $ccnumber .= $checkdigit;
-
         return $ccnumber;
     }
 
-    public static function credit_card_number($prefixList, $length, $howMany)
+    public static function creditCardNumber($prefixList, $length)
     {
-
-        for ($i = 0; $i < $howMany; $i++) {
-            $ccnumber = $prefixList[array_rand($prefixList)];
-            $result[] = self::completed_number($ccnumber, $length);
-        }
-        if ($howMany == 1) {
-            return array_pop($result);
-        } else {
-            return $result;
-        }
-
+         $ccnumber = $prefixList[array_rand($prefixList)];
+         return self::completedNumber($ccnumber, $length);
     }
 
-    public static function get_mastercard($count = 1)
+    public static function getMastercard()
     {
-        return self::credit_card_number(self::$mastercardPrefixList, 16, $count);
+        return self::creditCardNumber(self::$mastercardPrefixList, 16);
     }
 
-    public static function get_visa16($count = 1)
+    public static function getVisa16()
     {
-        return self::credit_card_number(self::$visaPrefixList, 16, $count);
+        return self::creditCardNumber(self::$visaPrefixList, 16);
     }
 
-    public static function get_visa13($count = 1)
+    public static function getVisa13()
     {
-        return self::credit_card_number(self::$visaPrefixList, 13, $count);
+        return self::creditCardNumber(self::$visaPrefixList, 13);
     }
 
-    public static function get_amex($count = 1)
+    public static function getAmex()
     {
-        return self::credit_card_number(self::$amexPrefixList, 15, $count);
+        return self::creditCardNumber(self::$amexPrefixList, 15);
     }
 }
