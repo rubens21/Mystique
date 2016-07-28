@@ -1,18 +1,18 @@
 {
-    "name": "gxela/creditcard-number-generator",
+    "name": "rubens21/Mystique",
     "description": "Credit Card Number Generator",
-    "keywords": ["laravel", "creditcard", "generator"],
-    "homepage": "https://github.com/gxela/creditcard-number-generator",
+    "keywords": ["persona", "generator", "test"],
+    "homepage": "https://github.com/rubens21/Mystique",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
+          "name": "Rubens Silva",
+          "email": "rubens21@gmail.com"
+        },{
             "name": "Alex Goretoy",
             "email": "alex@goretoy.com"
-        },{
-        "name": "Rubens Silva",
-        "email": "rubens21@gmail.com"
-      }
+        }
     ],
     "support": {
         "email" : "rubens21@gmail.com"
@@ -21,11 +21,11 @@
       "phpunit/phpunit": "5.3"
     },
     "require": {
-        "php": ">=7"
+        "php": ">=7.0"
     },
     "autoload": {
-        "psr-0": {
-            "Mystique\\CreditcardNumberGenerator": "src/"
+        "psr-4": {
+            "Mystique\\": "src/"
         }
     },
     "minimum-stability": "dev"
